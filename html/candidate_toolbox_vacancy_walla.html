@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Candidate Toolbox - Vacancy Walla</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Surface Level 0 */
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#e8c08a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#44474e",
+                        "secondary-container": "#dfe0e0",
+                        "surface-container-high": "#e7e8ea",
+                        "on-tertiary-fixed-variant": "#5d4217",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "primary": "#031635",
+                        "surface-container-low": "#f3f4f6",
+                        "inverse-on-surface": "#f0f1f3",
+                        "surface": "#f8f9fb",
+                        "outline-variant": "#c5c6cf",
+                        "tertiary-container": "#3e2700",
+                        "primary-container": "#1a2b4b",
+                        "outline": "#75777f",
+                        "on-primary-fixed-variant": "#364768",
+                        "on-secondary-fixed-variant": "#454747",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e1e2e4",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#edeef0",
+                        "secondary-fixed": "#e2e2e2",
+                        "surface-bright": "#f8f9fb",
+                        "primary-fixed-dim": "#b6c6ef",
+                        "on-surface": "#191c1e",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#4e5e81",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2e3132",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d9dadc",
+                        "on-secondary-container": "#616363",
+                        "surface-variant": "#e1e2e4",
+                        "on-background": "#191c1e",
+                        "on-primary-fixed": "#081b3a",
+                        "on-tertiary-fixed": "#291800",
+                        "on-tertiary-container": "#b08d5b",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#8293b8",
+                        "background": "#f8f9fb",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#231400",
+                        "tertiary-fixed": "#ffddb1",
+                        "inverse-primary": "#b6c6ef",
+                        "primary-fixed": "#d8e2ff",
+                        "secondary": "#5d5f5f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-lg": "48px",
+                        "margin-mobile": "16px",
+                        "stack-md": "24px",
+                        "container-max": "1200px",
+                        "base": "8px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-sm": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-xl-mobile": ["Inter"],
+                        "headline-xl": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-xl-mobile": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface-container-low text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-16">
+<div class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed">Vacancy Walla</div>
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Latest Jobs</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Exam Results</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Notifications</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-base">
+<button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-2 rounded-lg hover:opacity-80 transition-opacity">Login</button>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+<!-- Hero Section -->
+<section class="mb-stack-lg text-center md:text-left">
+<h1 class="font-headline-xl text-headline-xl text-primary mb-2">Candidate Toolbox</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                All the essential utilities you need to complete your government job applications in one place.
+            </p>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Main Content: Tool Grid -->
+<div class="lg:col-span-8 space-y-stack-md">
+<!-- 1. Photo & Signature Resizer -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-lg transition-shadow">
+<div class="flex items-center gap-base mb-4">
+<span class="material-symbols-outlined text-tertiary-container bg-tertiary-fixed p-2 rounded-lg">photo_size_select_large</span>
+<h2 class="font-headline-md text-headline-md text-primary">Photo &amp; Signature Resizer</h2>
+</div>
+<div class="grid md:grid-cols-2 gap-stack-md">
+<div class="space-y-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Target Size Limit</label>
+<select class="w-full border-outline-variant rounded-lg font-body-md text-body-md focus:ring-2 focus:ring-primary focus:border-primary">
+<option>Under 20KB (Standard Signature)</option>
+<option>Under 50KB (Standard Passport Photo)</option>
+<option>Under 100KB (Document Scan)</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Format</label>
+<div class="flex gap-4">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="text-primary focus:ring-primary" name="format" type="radio"/>
+<span class="font-body-md">JPG</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="text-primary focus:ring-primary" name="format" type="radio"/>
+<span class="font-body-md">PNG</span>
+</label>
+</div>
+</div>
+</div>
+<div class="border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-8 bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-primary mb-2">cloud_upload</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Upload Image</span>
+<span class="text-[10px] text-outline mt-1 uppercase">Max 5MB per file</span>
+</div>
+</div>
+<button class="mt-6 w-full bg-tertiary-fixed-dim text-on-tertiary-fixed font-label-md text-label-md py-3 rounded-lg border border-tertiary-container hover:bg-tertiary-fixed transition-colors">
+                        Process &amp; Resize Image
+                    </button>
+</article>
+<!-- 2. Eligibility / Age Calculator -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+<div class="flex items-center gap-base mb-6">
+<span class="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">calculate</span>
+<h2 class="font-headline-md text-headline-md text-primary">Eligibility / Age Calculator</h2>
+</div>
+<div class="grid md:grid-cols-2 gap-stack-md items-end">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Date of Birth</label>
+<input class="w-full border-outline-variant rounded-lg font-body-md text-body-md focus:ring-2 focus:ring-primary" type="date"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Age as on (Target Date)</label>
+<input class="w-full border-outline-variant rounded-lg font-body-md text-body-md focus:ring-2 focus:ring-primary" type="date" value="2024-12-31"/>
+</div>
+</div>
+<div class="mt-6 p-4 bg-surface-container rounded-lg border border-outline-variant flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Calculated Result:</span>
+<span class="font-headline-md text-headline-md text-primary" id="age-result">-- Years, -- Months</span>
+</div>
+</article>
+<div class="grid md:grid-cols-2 gap-stack-md">
+<!-- 3. JPG to PDF Converter -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-base mb-4">
+<span class="material-symbols-outlined text-error bg-error-container p-2 rounded-lg">picture_as_pdf</span>
+<h2 class="font-headline-md text-headline-md text-primary">JPG to PDF Converter</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Combine multiple scans into a single government-compliant PDF file.</p>
+</div>
+<button class="w-full border border-primary text-primary font-label-md text-label-md py-2 rounded-lg hover:bg-primary-fixed transition-colors">
+                            Select Files
+                        </button>
+</article>
+<!-- 4. Pro Resume Builder -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col justify-between relative overflow-hidden">
+<div class="absolute top-2 right-2">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Recommended</span>
+</div>
+<div>
+<div class="flex items-center gap-base mb-4">
+<span class="material-symbols-outlined text-secondary bg-secondary-fixed p-2 rounded-lg">article</span>
+<h2 class="font-headline-md text-headline-md text-primary">Pro Resume Builder</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Generate standard CV formats required for UPSC, SSC, and Banking exams.</p>
+</div>
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-2 rounded-lg hover:opacity-90 transition-opacity">
+                            Build My Resume
+                        </button>
+</article>
+</div>
+</div>
+<!-- Sidebar -->
+<aside class="lg:col-span-4 space-y-stack-md">
+<!-- Quick Links -->
+<section class="bg-surface-container-highest border border-outline-variant rounded-xl p-6">
+<h3 class="font-label-md text-label-md text-primary uppercase tracking-widest mb-4">Official Verification</h3>
+<ul class="space-y-4">
+<li>
+<a class="flex items-center justify-between group" href="#">
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-primary transition-colors">Caste Certificate Verify</span>
+<span class="material-symbols-outlined text-sm text-outline">open_in_new</span>
+</a>
+</li>
+<li>
+<a class="flex items-center justify-between group" href="#">
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-primary transition-colors">Domicile Status</span>
+<span class="material-symbols-outlined text-sm text-outline">open_in_new</span>
+</a>
+</li>
+<li>
+<a class="flex items-center justify-between group" href="#">
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-primary transition-colors">Income Certificate Status</span>
+<span class="material-symbols-outlined text-sm text-outline">open_in_new</span>
+</a>
+</li>
+</ul>
+</section>
+<!-- Helpful Guides -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 relative">
+<div class="absolute -right-4 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-8xl">menu_book</span>
+</div>
+<h3 class="font-label-md text-label-md text-primary uppercase tracking-widest mb-4">Helpful Guides</h3>
+<div class="space-y-stack-sm">
+<a class="block p-3 rounded-lg border border-transparent hover:border-outline-variant hover:bg-surface-container transition-all" href="#">
+<h4 class="font-label-md text-label-md text-primary mb-1">Manual Image Resizing</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Step-by-step guide using MS Paint and standard tools.</p>
+</a>
+<a class="block p-3 rounded-lg border border-transparent hover:border-outline-variant hover:bg-surface-container transition-all" href="#">
+<h4 class="font-label-md text-label-md text-primary mb-1">Document Requirements</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Check common sizes for different state boards.</p>
+</a>
+</div>
+</section>
+<!-- Help Desk Card -->
+<section class="bg-primary text-on-primary rounded-xl p-6 overflow-hidden relative">
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md mb-2">Need Help?</h3>
+<p class="font-body-sm text-body-sm text-primary-fixed mb-4">Facing issues while uploading your documents? Our help desk is active 24/7.</p>
+<button class="bg-tertiary-fixed text-on-tertiary-fixed font-label-md text-label-md px-4 py-2 rounded-lg w-full">
+                            Contact Support
+                        </button>
+</div>
+</section>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-surface-container-low border-t border-outline-variant mt-stack-lg">
+<div class="w-full py-stack-lg px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-base">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Vacancy Walla</div>
+<div class="flex flex-wrap justify-center gap-4 my-4 md:my-0">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:underline hover:text-primary" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:underline hover:text-primary" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:underline hover:text-primary" href="#">Disclaimer</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:underline hover:text-primary" href="#">Help Desk</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:underline hover:text-primary" href="#">Sitemap</a>
+</div>
+<div class="font-label-md text-label-md text-on-surface dark:text-on-surface-variant text-center md:text-right">
+                © 2024 Vacancy Walla. All rights reserved. Government of India Official Portal.
+            </div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for Age Calculator
+        document.querySelectorAll('input[type="date"]').forEach(input => {
+            input.addEventListener('change', () => {
+                const ageResult = document.getElementById('age-result');
+                // Simple placeholder logic for visual feedback
+                ageResult.classList.add('opacity-0');
+                setTimeout(() => {
+                    ageResult.innerText = "24 Years, 4 Months"; // Mock calculation
+                    ageResult.classList.remove('opacity-0');
+                    ageResult.classList.add('transition-opacity', 'duration-500');
+                }, 300);
+            });
+        });
+    </script>
+</body></html>
