@@ -40,7 +40,7 @@ export default function JobDetailPage(props: any) {
     vacancies: 'TBA',
     fee: 'TBA',
     eligibility: 'TBA',
-    description: 'This job detail page is a sample layout. Replace with Firestore-driven content for real vacancies.'
+    description: 'This job detail page is a sample layout. Replace with Supabase-driven content for real vacancies.'
   };
 
   return (

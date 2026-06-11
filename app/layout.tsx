@@ -3,7 +3,7 @@ import '@/styles/globals.css';
 
 export const metadata: Metadata = {
   title: 'Vacancy Walla | Job Portal',
-  description: 'Professional government job portal built with Next.js, Tailwind CSS, and Firebase.'
+  description: 'Professional government job portal built with Next.js, Tailwind CSS, and Supabase.'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

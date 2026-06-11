@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
 
 export type Job = {
   id: string;
@@ -41,8 +42,25 @@ export default function useJobs() {
 
   useEffect(() => {
     const loadJobs = async () => {
-      // Static demo mode: skip Firebase so the portal renders without backend setup.
-      setJobs(sampleJobs);
+      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+        setJobs(sampleJobs);
+        setLoading(false);
+        return;
+      }
+
+      const { data, error: fetchError } = await supabase
+        .from('jobs')
+        .select('id, title, organization, lastDate, link');
+
+      if (fetchError) {
+        setError('Unable to load jobs from Supabase. Showing demo listings.');
+        setJobs(sampleJobs);
+      } else if (data) {
+        setJobs(data as Job[]);
+      } else {
+        setJobs(sampleJobs);
+      }
+
       setLoading(false);
     };
 
