@@ -9,7 +9,7 @@ const navItems = [
   { label: 'Results', href: '/#results' }
 ];
 
-const WHATSAPP_LINK = 'https://wa.me/919000000000?text=Hi!%20I%20need%20help%20with%20government%20jobs';
+const WHATSAPP_LINK = 'https://wa.me/919399159047?text=Hi!%20I%20need%20help%20with%20government%20jobs';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

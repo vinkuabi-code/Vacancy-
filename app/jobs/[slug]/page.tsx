@@ -1,112 +1,212 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import { supabase } from '@/lib/supabase';
 
-const jobDetails: Record<string, { title: string; organization: string; lastDate: string; vacancies: string; fee: string; eligibility: string; description: string; }> = {
-  'ssc-cgl-2024': {
-    title: 'SSC CGL 2024',
-    organization: 'Staff Selection Commission',
-    lastDate: 'October 15, 2024',
-    vacancies: '17,727 Posts',
-    fee: '₹100 (Gen/OBC)',
-    eligibility: 'Any Graduate',
-    description: 'Combined Graduate Level Examination for central government recruitment. Prepare for Tier I and Tier II with detailed vacancy information and official notification links.'
-  },
-  'ibps-po-xiv': {
-    title: 'IBPS PO XIV 2024',
-    organization: 'Institute of Banking Personnel Selection',
-    lastDate: 'September 28, 2024',
-    vacancies: '4,500+ Posts',
-    fee: '₹850 (Gen/OBC)',
-    eligibility: 'Graduate in any discipline',
-    description: 'Probationary Officer recruitment for participating banks with a focus on finance and customer service roles. Includes prelims, mains, and interview stages.'
-  },
-  'railways-constable': {
-    title: 'Railways Constable Recruitment',
-    organization: 'Indian Railways',
-    lastDate: 'November 04, 2024',
-    vacancies: '10,000+ Posts',
-    fee: '₹250 (Gen/OBC)',
-    eligibility: '10th Pass',
-    description: 'A large-scale recruitment drive for railway constables. The page includes exam dates, eligibility criteria and application instructions for aspirants.'
-  }
+type JobDetail = {
+  id: string;
+  title: string;
+  category: string;
+  organization: string | null;
+  last_date: string | null;
+  official_link: string | null;
+  eligibility: string | null;
+  important_dates: string | null;
+  exam_news: string | null;
+  syllabus_text: string | null;
+  fee: string | null;
+  vacancies: string | null;
 };
 
-export default function JobDetailPage(props: any) {
-  const { params } = props;
-  const job = jobDetails[params?.slug] || {
-    title: 'Job details',
-    organization: 'Vacancy Walla',
-    lastDate: 'TBA',
-    vacancies: 'TBA',
-    fee: 'TBA',
-    eligibility: 'TBA',
-    description: 'This job detail page is a sample layout. Replace with Supabase-driven content for real vacancies.'
+const sampleJob: JobDetail = {
+  id: 'sample',
+  title: 'SSC CGL 2024',
+  category: 'Latest Job',
+  organization: 'Staff Selection Commission',
+  last_date: '2024-10-15',
+  official_link: 'https://ssc.gov.in',
+  eligibility: 'Any Graduate',
+  important_dates: 'Exam Date: November 2024 | Admit Card: October 2024',
+  exam_news: 'Latest notification released on official website',
+  syllabus_text: 'Quantitative Aptitude, General Intelligence, English Language, General Awareness',
+  fee: '₹100 (Gen/OBC)',
+  vacancies: '17,727 Posts'
+};
+
+export default function JobDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const [slug, setSlug] = useState<string | null>(null);
+  const [job, setJob] = useState<JobDetail | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getParams = async () => {
+      const { slug: paramSlug } = await params;
+      setSlug(paramSlug);
+      loadJobDetail(paramSlug);
+    };
+    getParams();
+  }, [params]);
+
+  const loadJobDetail = async (jobId: string) => {
+    if (!supabase) {
+      setJob(sampleJob);
+      setLoading(false);
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from('jobs')
+      .select('*')
+      .eq('id', jobId)
+      .single();
+
+    if (error || !data) {
+      setJob(sampleJob);
+    } else {
+      setJob(data as JobDetail);
+    }
+    setLoading(false);
   };
 
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-white">
+        <Navbar />
+        <div className="mx-auto max-w-4xl px-6 py-12 lg:px-8">
+          <p className="text-slate-600">Loading job details...</p>
+        </div>
+      </main>
+    );
+  }
+
+  if (!job) {
+    return (
+      <main className="min-h-screen bg-white">
+        <Navbar />
+        <div className="mx-auto max-w-4xl px-6 py-12 lg:px-8">
+          <p className="text-slate-600">Job not found</p>
+          <Link href="/jobs" className="text-brand hover:underline">← Back to Jobs</Link>
+        </div>
+      </main>
+    );
+  }
+
   return (
-    <main className="min-h-screen bg-surface">
+    <main className="min-h-screen bg-white">
       <Navbar />
-      <section className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
-        <Link href="/jobs" className="text-sm font-semibold text-brand hover:underline">
-          ← Back to listings
-        </Link>
-        <div className="mt-8 rounded-3xl bg-white p-8 shadow-sm">
-          <div className="flex flex-col gap-6 lg:flex-row lg:justify-between lg:items-start">
-            <div className="max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">Job Details</p>
-              <h1 className="mt-4 text-4xl font-semibold text-textPrimary">{job.title}</h1>
-              <p className="mt-3 text-sm leading-7 text-textSecondary">{job.organization}</p>
+      
+      {/* Header Section */}
+      <section className="border-b border-slate-200 bg-gradient-to-b from-blue-50 to-white px-6 py-12 lg:px-8">
+        <div className="mx-auto max-w-4xl">
+          <Link href="/jobs" className="text-sm font-semibold text-brand hover:underline">← Back to Jobs</Link>
+          <h1 className="mt-4 text-4xl font-bold text-slate-900">{job.title}</h1>
+          <p className="mt-2 text-lg text-slate-600">{job.organization}</p>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <section className="mx-auto max-w-4xl px-6 py-12 lg:px-8">
+        <div className="grid gap-8 md:grid-cols-3">
+          {/* Left Column - Main Info */}
+          <div className="md:col-span-2 space-y-8">
+            
+            {/* Quick Info Cards */}
+            <div className="grid gap-4 sm:grid-cols-2">
+              {job.vacancies && (
+                <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                  <p className="text-sm font-semibold text-slate-600">Vacancies</p>
+                  <p className="mt-2 text-xl font-bold text-slate-900">{job.vacancies}</p>
+                </div>
+              )}
+              {job.fee && (
+                <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                  <p className="text-sm font-semibold text-slate-600">Application Fee</p>
+                  <p className="mt-2 text-xl font-bold text-slate-900">{job.fee}</p>
+                </div>
+              )}
+              {job.last_date && (
+                <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                  <p className="text-sm font-semibold text-slate-600">Last Date</p>
+                  <p className="mt-2 text-xl font-bold text-slate-900">{job.last_date}</p>
+                </div>
+              )}
+              {job.eligibility && (
+                <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                  <p className="text-sm font-semibold text-slate-600">Eligibility</p>
+                  <p className="mt-2 text-xl font-bold text-slate-900">{job.eligibility}</p>
+                </div>
+              )}
             </div>
-            <div className="space-y-3 rounded-3xl bg-surface-container-low p-6 text-sm text-textSecondary">
-              <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-accent">Apply by</p>
-                <p className="mt-2 font-semibold text-textPrimary">{job.lastDate}</p>
+
+            {/* Eligibility Section */}
+            {job.eligibility && (
+              <div className="rounded-lg border border-slate-200 p-6">
+                <h2 className="text-2xl font-bold text-slate-900">Eligibility Criteria</h2>
+                <p className="mt-4 text-slate-700 leading-relaxed">{job.eligibility}</p>
               </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-accent">Vacancies</p>
-                <p className="mt-2 font-semibold text-textPrimary">{job.vacancies}</p>
+            )}
+
+            {/* Important Dates Section */}
+            {job.important_dates && (
+              <div className="rounded-lg border border-slate-200 p-6">
+                <h2 className="text-2xl font-bold text-slate-900">Important Dates</h2>
+                <div className="mt-4 space-y-3">
+                  {job.important_dates.split('|').map((date, idx) => (
+                    <p key={idx} className="text-slate-700">
+                      <span className="font-semibold">{date.trim()}</span>
+                    </p>
+                  ))}
+                </div>
               </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-accent">Application Fee</p>
-                <p className="mt-2 font-semibold text-textPrimary">{job.fee}</p>
+            )}
+
+            {/* Exam News Section */}
+            {job.exam_news && (
+              <div className="rounded-lg border border-blue-200 bg-blue-50 p-6">
+                <h2 className="text-2xl font-bold text-blue-900">Latest News</h2>
+                <p className="mt-4 text-blue-800 leading-relaxed">{job.exam_news}</p>
               </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-accent">Eligibility</p>
-                <p className="mt-2 font-semibold text-textPrimary">{job.eligibility}</p>
+            )}
+
+            {/* Syllabus Section */}
+            {job.syllabus_text && (
+              <div className="rounded-lg border border-slate-200 p-6">
+                <h2 className="text-2xl font-bold text-slate-900">Syllabus</h2>
+                <p className="mt-4 text-slate-700 leading-relaxed whitespace-pre-wrap">{job.syllabus_text}</p>
               </div>
-            </div>
+            )}
           </div>
 
-          <div className="mt-10 grid gap-8 lg:grid-cols-[2fr_1fr]">
-            <div className="space-y-6">
-              <article className="rounded-3xl bg-surface p-6">
-                <h2 className="text-2xl font-semibold text-textPrimary">About this vacancy</h2>
-                <p className="mt-4 text-sm leading-7 text-textSecondary">{job.description}</p>
-              </article>
-              <article className="rounded-3xl bg-white border border-slate-200 p-6">
-                <h3 className="text-xl font-semibold text-textPrimary">How to apply</h3>
-                <ul className="mt-4 space-y-3 text-sm text-textSecondary">
-                  <li>1. Read the official notification.</li>
-                  <li>2. Complete the online application form.</li>
-                  <li>3. Upload documents and pay the fee.</li>
-                  <li>4. Submit before the deadline.</li>
-                </ul>
-              </article>
-            </div>
-            <aside className="rounded-3xl bg-brand text-white p-6 shadow-sm">
-              <p className="text-sm uppercase tracking-[0.24em] text-brandLight/80">Quick actions</p>
-              <div className="mt-6 space-y-4">
-                <a href="#" className="block rounded-full bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/20">
-                  Download notification
+          {/* Right Column - CTA Sidebar */}
+          <div className="md:col-span-1">
+            <div className="sticky top-20 space-y-4 rounded-lg border border-slate-200 bg-slate-50 p-6">
+              {job.official_link && (
+                <a
+                  href={job.official_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full rounded-lg bg-blue-600 px-6 py-3 text-center font-semibold text-white transition hover:bg-blue-700"
+                >
+                  Apply Now
                 </a>
-                <a href="#" className="block rounded-full bg-white px-5 py-3 text-sm font-semibold text-brand transition hover:bg-slate-100">
-                  Save this job
-                </a>
-                <a href="mailto:hello@vacancywalla.com" className="block rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
-                  Request help
-                </a>
+              )}
+              
+              <a
+                href="https://wa.me/919399159047?text=Hi!%20I%20have%20questions%20about%20this%20job"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full rounded-lg bg-green-500 px-6 py-3 text-center font-semibold text-white transition hover:bg-green-600"
+              >
+                WhatsApp Help
+              </a>
+
+              <div className="rounded-lg bg-yellow-50 p-4 text-sm text-yellow-800">
+                <p className="font-semibold">💡 Tip</p>
+                <p className="mt-2">Save this page for future reference. Check for exam date updates regularly.</p>
               </div>
-            </aside>
+            </div>
           </div>
         </div>
       </section>

@@ -11,11 +11,14 @@ export default function JobCard({ title, organization, lastDate, link }: JobCard
       href={link || '#'}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+      className="group block rounded-lg border-2 border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-blue-400 hover:shadow-lg hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50"
     >
-      <h3 className="font-semibold text-slate-900">{title}</h3>
-      {organization && <p className="mt-1 text-sm text-slate-600">{organization}</p>}
-      {lastDate && <p className="mt-2 text-xs text-slate-500">Deadline: {lastDate}</p>}
+      <h3 className="font-semibold text-slate-900 group-hover:text-blue-700">{title}</h3>
+      {organization && <p className="mt-1 text-sm text-slate-600 group-hover:text-slate-700">{organization}</p>}
+      {lastDate && <p className="mt-2 text-xs text-slate-500 group-hover:text-slate-600">📅 {lastDate}</p>}
+      <div className="mt-3 flex items-center text-sm font-semibold text-blue-600 group-hover:text-blue-700">
+        View Details →
+      </div>
     </a>
   );
 }
