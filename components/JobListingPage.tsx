@@ -1,23 +1,10 @@
 'use client';
 
 import JobCard from './JobCard';
-import useJobs from '@/hooks/useJobs';
+import { useJobs } from '@/hooks/useJobs';
 
-type JobItem = {
-  id: string;
-  title: string;
-  organization: string;
-  lastDate: string;
-  link: string;
-};
-
-type JobListingPageProps = {
-  fallbackJobs?: JobItem[];
-};
-
-export default function JobListingPage({ fallbackJobs = [] }: JobListingPageProps) {
-  const { jobs, loading, error } = useJobs();
-  const displayJobs = jobs.length > 0 ? jobs : fallbackJobs;
+export default function JobListingPage() {
+  const { jobs, loading, error } = useJobs('Latest Job');
 
   return (
     <section id="jobs" className="space-y-8">
@@ -29,12 +16,6 @@ export default function JobListingPage({ fallbackJobs = [] }: JobListingPageProp
             Smart, professional job cards help your users find application deadlines quickly and jump straight to details.
           </p>
         </div>
-        <a
-          href="/jobs"
-          className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-brand transition hover:border-brand hover:bg-brandLight/10"
-        >
-          View All Jobs
-        </a>
       </div>
 
       {loading && (
@@ -50,12 +31,12 @@ export default function JobListingPage({ fallbackJobs = [] }: JobListingPageProp
       )}
 
       <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-        {displayJobs.map((job) => (
-          <JobCard key={job.id} title={job.title} organization={job.organization} lastDate={job.lastDate} link={job.link} />
+        {jobs.map((job) => (
+          <JobCard key={job.id} title={job.title} organization={job.organization} lastDate={job.last_date} link={job.official_link || '#'} />
         ))}
       </div>
 
-      {!loading && displayJobs.length === 0 && (
+      {!loading && jobs.length === 0 && (
         <div className="rounded-3xl bg-white p-8 text-center text-sm text-slate-600 shadow-sm">
           No active listings are available right now. Please check back later.
         </div>

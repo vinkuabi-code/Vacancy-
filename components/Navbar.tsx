@@ -4,10 +4,12 @@ import { useState } from 'react';
 
 const navItems = [
   { label: 'Home', href: '/' },
-  { label: 'Latest Jobs', href: '/jobs' },
-  { label: 'Admit Cards', href: '/admit-cards' },
-  { label: 'Results', href: '/results' }
+  { label: 'Latest Jobs', href: '/#latest' },
+  { label: 'Admit Cards', href: '/#admit-cards' },
+  { label: 'Results', href: '/#results' }
 ];
+
+const WHATSAPP_LINK = 'https://wa.me/919000000000?text=Hi!%20I%20need%20help%20with%20government%20jobs';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,8 +43,13 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <a href="mailto:hello@vacancywalla.com" className="rounded-full border border-slate-200 px-5 py-2 text-sm font-semibold text-slate-700 transition hover:border-brand hover:text-brand">
-            Request Service
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full bg-green-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-green-600"
+          >
+            WhatsApp Help
           </a>
         </div>
       </div>
@@ -55,8 +62,13 @@ export default function Navbar() {
                 {item.label}
               </a>
             ))}
-            <a href="mailto:hello@vacancywalla.com" className="block rounded-xl bg-brand px-4 py-3 text-center text-sm font-semibold text-white transition hover:bg-brandLight">
-              Request Service
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-xl bg-green-500 px-4 py-3 text-center text-sm font-semibold text-white transition hover:bg-green-600"
+            >
+              WhatsApp Help
             </a>
           </div>
         </div>
