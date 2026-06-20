@@ -6,7 +6,9 @@ const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Latest Jobs', href: '/#latest' },
   { label: 'Admit Cards', href: '/#admit-cards' },
-  { label: 'Results', href: '/#results' }
+  { label: 'Results', href: '/#results' },
+  { label: 'Syllabus', href: '/syllabus' },
+  { label: 'Answer Key', href: '/answer-key' }
 ];
 
 const WHATSAPP_LINK = 'https://wa.me/919399159047?text=Hi!%20I%20need%20help%20with%20government%20jobs';

@@ -3,6 +3,9 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import InfoTableSection from '@/components/InfoTableSection';
+import FAQSection from '@/components/FAQSection';
+import HowToApplySection from '@/components/HowToApplySection';
 import { supabase } from '@/lib/supabase';
 
 type JobDetail = {
@@ -110,73 +113,132 @@ export default function JobDetailPage({ params }: { params: Promise<{ slug: stri
       <section className="mx-auto max-w-4xl px-6 py-12 lg:px-8">
         <div className="grid gap-8 md:grid-cols-3">
           {/* Left Column - Main Info */}
-          <div className="md:col-span-2 space-y-8">
+          <div className="md:col-span-2 space-y-6">
             
             {/* Quick Info Cards */}
             <div className="grid gap-4 sm:grid-cols-2">
               {job.vacancies && (
-                <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <p className="text-sm font-semibold text-slate-600">Vacancies</p>
-                  <p className="mt-2 text-xl font-bold text-slate-900">{job.vacancies}</p>
+                <div className="rounded-lg border-2 border-blue-500 bg-blue-50 p-4">
+                  <p className="text-sm font-semibold text-blue-700">Vacancies</p>
+                  <p className="mt-2 text-2xl font-bold text-blue-900">{job.vacancies}</p>
                 </div>
               )}
               {job.fee && (
-                <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <p className="text-sm font-semibold text-slate-600">Application Fee</p>
-                  <p className="mt-2 text-xl font-bold text-slate-900">{job.fee}</p>
+                <div className="rounded-lg border-2 border-green-500 bg-green-50 p-4">
+                  <p className="text-sm font-semibold text-green-700">Application Fee</p>
+                  <p className="mt-2 text-2xl font-bold text-green-900">{job.fee}</p>
                 </div>
               )}
               {job.last_date && (
-                <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <p className="text-sm font-semibold text-slate-600">Last Date</p>
-                  <p className="mt-2 text-xl font-bold text-slate-900">{job.last_date}</p>
+                <div className="rounded-lg border-2 border-orange-500 bg-orange-50 p-4">
+                  <p className="text-sm font-semibold text-orange-700">Last Date to Apply</p>
+                  <p className="mt-2 text-2xl font-bold text-orange-900">{job.last_date}</p>
                 </div>
               )}
               {job.eligibility && (
-                <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <p className="text-sm font-semibold text-slate-600">Eligibility</p>
-                  <p className="mt-2 text-xl font-bold text-slate-900">{job.eligibility}</p>
+                <div className="rounded-lg border-2 border-purple-500 bg-purple-50 p-4">
+                  <p className="text-sm font-semibold text-purple-700">Eligibility</p>
+                  <p className="mt-2 text-2xl font-bold text-purple-900">{job.eligibility}</p>
                 </div>
               )}
             </div>
 
-            {/* Eligibility Section */}
-            {job.eligibility && (
-              <div className="rounded-lg border border-slate-200 p-6">
-                <h2 className="text-2xl font-bold text-slate-900">Eligibility Criteria</h2>
-                <p className="mt-4 text-slate-700 leading-relaxed">{job.eligibility}</p>
-              </div>
-            )}
-
             {/* Important Dates Section */}
             {job.important_dates && (
-              <div className="rounded-lg border border-slate-200 p-6">
-                <h2 className="text-2xl font-bold text-slate-900">Important Dates</h2>
-                <div className="mt-4 space-y-3">
-                  {job.important_dates.split('|').map((date, idx) => (
-                    <p key={idx} className="text-slate-700">
-                      <span className="font-semibold">{date.trim()}</span>
-                    </p>
-                  ))}
-                </div>
+              <InfoTableSection 
+                title="📅 Important Dates"
+                data={job.important_dates.split('|').map((date) => {
+                  const parts = date.trim().split(':');
+                  return {
+                    label: parts[0].trim(),
+                    value: parts.slice(1).join(':').trim()
+                  };
+                })}
+                bgColor="bg-yellow-50"
+              />
+            )}
+
+            {/* Eligibility Section */}
+            {job.eligibility && (
+              <div className="rounded-lg border-l-4 border-blue-600 bg-slate-50 p-6">
+                <h2 className="text-2xl font-bold text-slate-900">✓ Eligibility Criteria</h2>
+                <p className="mt-4 text-slate-700 leading-relaxed whitespace-pre-wrap">{job.eligibility}</p>
               </div>
             )}
 
             {/* Exam News Section */}
             {job.exam_news && (
-              <div className="rounded-lg border border-blue-200 bg-blue-50 p-6">
-                <h2 className="text-2xl font-bold text-blue-900">Latest News</h2>
-                <p className="mt-4 text-blue-800 leading-relaxed">{job.exam_news}</p>
+              <div className="rounded-lg border-l-4 border-green-600 bg-green-50 p-6">
+                <h2 className="text-2xl font-bold text-green-900">📰 Latest Updates</h2>
+                <p className="mt-4 text-green-800 leading-relaxed">{job.exam_news}</p>
               </div>
             )}
 
             {/* Syllabus Section */}
             {job.syllabus_text && (
-              <div className="rounded-lg border border-slate-200 p-6">
-                <h2 className="text-2xl font-bold text-slate-900">Syllabus</h2>
+              <div className="rounded-lg border-l-4 border-purple-600 bg-slate-50 p-6">
+                <h2 className="text-2xl font-bold text-slate-900">📚 Exam Syllabus</h2>
                 <p className="mt-4 text-slate-700 leading-relaxed whitespace-pre-wrap">{job.syllabus_text}</p>
               </div>
             )}
+
+            {/* FAQ Section */}
+            <FAQSection 
+              faqs={[
+                {
+                  question: 'How do I apply for this exam?',
+                  answer: 'Click on the "Apply Now" button to go to the official website. Register yourself on the portal and fill in the required details along with uploading the necessary documents.'
+                },
+                {
+                  question: 'What is the age limit?',
+                  answer: 'The age limit and relaxations vary for different categories. Please check the official notification for detailed eligibility criteria.'
+                },
+                {
+                  question: 'When will the admit card be released?',
+                  answer: 'The admit card release date is mentioned in the "Important Dates" section above. Keep checking the official website for updates.'
+                },
+                {
+                  question: 'How can I get help with my application?',
+                  answer: 'You can contact us via WhatsApp for any queries or assistance with your application. Click the WhatsApp button below.'
+                }
+              ]}
+            />
+
+            {/* How to Apply Section */}
+            <HowToApplySection 
+              steps={[
+                {
+                  number: 1,
+                  title: 'Check Eligibility',
+                  description: 'Review the eligibility criteria above to ensure you meet all requirements (age, qualification, experience, etc.)'
+                },
+                {
+                  number: 2,
+                  title: 'Prepare Documents',
+                  description: 'Gather all required documents like education certificates, ID proof, passport size photo, etc.'
+                },
+                {
+                  number: 3,
+                  title: 'Visit Official Website',
+                  description: 'Click the "Apply Now" button above to go to the official application portal'
+                },
+                {
+                  number: 4,
+                  title: 'Fill Application',
+                  description: 'Complete all fields in the application form with accurate information'
+                },
+                {
+                  number: 5,
+                  title: 'Upload Documents',
+                  description: 'Upload scanned copies of all required documents in the specified format'
+                },
+                {
+                  number: 6,
+                  title: 'Submit & Payment',
+                  description: 'Submit the form and complete the application fee payment as per your category'
+                }
+              ]}
+            />
           </div>
 
           {/* Right Column - CTA Sidebar */}

@@ -3,6 +3,7 @@
 import { useJobs } from '@/hooks/useJobs';
 import Navbar from '@/components/Navbar';
 import JobCard from '@/components/JobCard';
+import ExamToolsSection from '@/components/ExamToolsSection';
 
 export default function HomePage() {
   const latestJobs = useJobs('Latest Job');
@@ -31,6 +32,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Exam Tools Section */}
+      <ExamToolsSection />
+
       {/* 3-Column Section */}
       <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="grid gap-8 md:grid-cols-3">
@@ -48,7 +52,7 @@ export default function HomePage() {
                     title={job.title}
                     organization={job.organization}
                     lastDate={job.last_date}
-                    link={job.official_link || '#'}
+                    link={`/jobs/${job.id}`}
                   />
                 ))
               ) : (
@@ -71,7 +75,7 @@ export default function HomePage() {
                     title={job.title}
                     organization={job.organization}
                     lastDate={job.last_date}
-                    link={job.official_link || '#'}
+                    link={`/jobs/${job.id}`}
                   />
                 ))
               ) : (
@@ -94,12 +98,77 @@ export default function HomePage() {
                     title={job.title}
                     organization={job.organization}
                     lastDate={job.last_date}
-                    link={job.official_link || '#'}
+                    link={`/jobs/${job.id}`}
                   />
                 ))
               ) : (
                 <p className="text-orange-600">No results available yet</p>
               )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Second Row - Study Materials Section */}
+      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+        <div className="grid gap-8 md:grid-cols-3">
+          {/* Syllabus Column */}
+          <div className="rounded-xl bg-gradient-to-br from-indigo-50 to-indigo-100/50 p-6">
+            <div className="mb-2 inline-block rounded-full bg-indigo-600 px-3 py-1 text-sm font-bold text-white">
+              Syllabus
+            </div>
+            <h2 className="mb-6 text-2xl font-bold text-indigo-900">Exam Syllabus</h2>
+            <div className="space-y-3">
+              <a
+                href="/syllabus"
+                className="group block rounded-lg border-2 border-indigo-200 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-indigo-400 hover:shadow-lg hover:bg-gradient-to-br hover:from-indigo-50 hover:to-blue-50"
+              >
+                <h3 className="font-semibold text-indigo-900 group-hover:text-indigo-700">Browse All Syllabus</h3>
+                <p className="mt-2 text-sm text-indigo-600 group-hover:text-indigo-700">View Detailed Topics →</p>
+              </a>
+              <div className="rounded-lg border border-indigo-200 bg-indigo-50 p-4">
+                <p className="text-sm text-indigo-700">Updated exam syllabi for all major competitive exams</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Answer Key Column */}
+          <div className="rounded-xl bg-gradient-to-br from-violet-50 to-violet-100/50 p-6">
+            <div className="mb-2 inline-block rounded-full bg-violet-600 px-3 py-1 text-sm font-bold text-white">
+              Answer Key
+            </div>
+            <h2 className="mb-6 text-2xl font-bold text-violet-900">Exam Answer Keys</h2>
+            <div className="space-y-3">
+              <a
+                href="/answer-key"
+                className="group block rounded-lg border-2 border-violet-200 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-violet-400 hover:shadow-lg hover:bg-gradient-to-br hover:from-violet-50 hover:to-purple-50"
+              >
+                <h3 className="font-semibold text-violet-900 group-hover:text-violet-700">Get Answer Keys</h3>
+                <p className="mt-2 text-sm text-violet-600 group-hover:text-violet-700">Download & Compare →</p>
+              </a>
+              <div className="rounded-lg border border-violet-200 bg-violet-50 p-4">
+                <p className="text-sm text-violet-700">Official answer keys released after exams</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Admission & Document Column */}
+          <div className="rounded-xl bg-gradient-to-br from-cyan-50 to-cyan-100/50 p-6">
+            <div className="mb-2 inline-block rounded-full bg-cyan-600 px-3 py-1 text-sm font-bold text-white">
+              Admission & Documents
+            </div>
+            <h2 className="mb-6 text-2xl font-bold text-cyan-900">Admission Info</h2>
+            <div className="space-y-3">
+              <a
+                href="/admission"
+                className="group block rounded-lg border-2 border-cyan-200 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-cyan-400 hover:shadow-lg hover:bg-gradient-to-br hover:from-cyan-50 hover:to-blue-50"
+              >
+                <h3 className="font-semibold text-cyan-900 group-hover:text-cyan-700">Admission Details</h3>
+                <p className="mt-2 text-sm text-cyan-600 group-hover:text-cyan-700">Documentation & Process →</p>
+              </a>
+              <div className="rounded-lg border border-cyan-200 bg-cyan-50 p-4">
+                <p className="text-sm text-cyan-700">Complete admission procedures & required documents</p>
+              </div>
             </div>
           </div>
         </div>
